@@ -7,18 +7,28 @@ class Wordlist{
     string name ;
     size_t size ;
     vector<Card> cards;
-    vector<Card> hidden ; //错题本
+    vector<Card> hidden; //错题本
+    
+    int score =0;
+    int standard=0;
+
+    bool decreaseable(){ return score >= 10 ;}
+    bool increaseable(){ return score <= 10000000;}
 
 
 
 public:
     Wordlist(vector<Card> cs = vector<Card>(), const string & na = "unamed"  ):name(na),cards(cs){ size = cards.size() ;}
+    Wordlist(const string & na = "unamed"  ):name(na){ size = cards.size() ;}
     void add_card(Card & c);
     void show_cards();
     void study_card();
+    void set_standard(int num){ standard = num;}
 
-//interface
+//get value interface
+    int get_score(){ return score;}
     string get_name() { return name ; }
+
 };
 void Wordlist::add_card(Card & c){
     cards.push_back(c);
@@ -78,7 +88,25 @@ void Wordlist::study_card(){
     }
     if (!right){
         hidden.push_back(selected);
+        if (decreaseable())
+        score -= 10;
+        else
+        {
+            score = 0;
+            cout << "your score is 0 now *_*" <<endl;
+        }
+        
     }
+    else
+    { 
+        if (increaseable())
+        score += 10;
+        else
+        cout << "your score cannot be higher!" << endl;
+    }
+
+    
+
     }
 }
 

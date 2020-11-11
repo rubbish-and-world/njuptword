@@ -38,7 +38,7 @@ public:
     bool recite_choice_e2c();
     void show_all();
 
-//interface
+//get value interface
     string get_english() { return english;}
 };
 //private methods
