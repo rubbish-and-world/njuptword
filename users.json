@@ -1,0 +1,72 @@
+[
+    {
+        "decks": [
+            {
+                "name": "deck1",
+                "standard_score": 100,
+                "total_score": 110,
+                "type": "deck",
+                "wordlists": [
+                    {
+                        "cards": [
+                            {
+                                "chinese": "牛奶",
+                                "choice_ch": [
+                                    "str1",
+                                    "str2",
+                                    "str3"
+                                ],
+                                "choice_en": [
+                                    "str1",
+                                    "str2",
+                                    "str3"
+                                ],
+                                "english": "milk",
+                                "info": [
+                                    "white",
+                                    "nice"
+                                ],
+                                "property": "n.",
+                                "type": "card"
+                            }
+                        ],
+                        "hidden": [
+                            {
+                                "chinese": "蛋糕",
+                                "choice_ch": [
+                                    "str1",
+                                    "str2",
+                                    "str3"
+                                ],
+                                "choice_en": [
+                                    "str1",
+                                    "str2",
+                                    "str3"
+                                ],
+                                "english": "cake",
+                                "info": [
+                                    "delicious"
+                                ],
+                                "property": "n.",
+                                "type": "card"
+                            }
+                        ],
+                        "name": "wdls1",
+                        "score": 110,
+                        "standard": 100,
+                        "type": "wordlist"
+                    }
+                ]
+            }
+        ],
+        "name": "user1",
+        "password": "pass",
+        "type": "user"
+    },
+    {
+        "decks": [],
+        "name": "user2",
+        "password": "passs",
+        "type": "user"
+    }
+]

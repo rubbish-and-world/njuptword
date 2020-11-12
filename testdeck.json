@@ -1,0 +1,43 @@
+{
+    "type":"deck",
+    "name":"imported",
+    "total_score":50,
+    "standard_score":60,
+    "wordlists":[
+        {
+            "type":"wordlist",
+            "name":"everday",
+            "score":180,
+            "standard":190,
+            "cards":[
+                {
+                    "type":"card",
+                    "english":"cabinet",
+                    "chinese":"内阁",
+                    "property":"n.",
+                    "info":["it is a kind of person","also a piece of furniture"],
+                    "choice_en":["cabin","breeze","camouflage"],
+                    "choice_ch":["小木屋","微风","伪装"]
+                },
+                {
+                    "type":"card",
+                    "english":"flask",
+                    "chinese":"细颈瓶",
+                    "property":"n.",
+                    "info":["a bottle can be used for carrying water"],
+                    "choice_en":["flank","fly","fry"],
+                    "choice_ch":["侧翼","苍蝇","油炸"]
+                }
+            ],
+            "hidden":[]
+        },
+        {
+            "type":"wordlist",
+            "name":"In the long run",
+            "score":183,
+            "standard":194,
+            "cards":[],
+            "hidden":[]
+        }
+    ]
+}

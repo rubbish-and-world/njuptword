@@ -1,0 +1,33 @@
+[
+    {
+        "type":"user",
+        "name": "string",
+        "password": "string",
+        "decks":[]
+    },
+    {
+        "type":"deck",
+        "name":"string",
+        "total_score":100,
+        "standard_score":100,
+        "wordlists":[]
+    },
+    {
+        "type":"wordlist",
+        "name":"string",
+        "score":100,
+        "standard":100,
+        "cards":[],
+        "hidden":[]
+    },
+    {
+        "type":"card",
+        "english":"string",
+        "chinese":"string",
+        "property":"string",
+        "info":["information1","information2"],
+        "choice_en":["str1","str2","str3"],
+        "choice_ch":["str1","str2","str3"]
+    }
+    ]
+

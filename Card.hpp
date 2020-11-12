@@ -2,12 +2,17 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include "json.hpp"
+#include "color.hpp"
+using Json = nlohmann::json;
+
 using namespace std;
 class Card{
+    string type = "card";
     string english;
     string chinese;
     string property;
-    string info;
+    vector<string> info = {"void"};
     vector<string> choice_en  = {"wrong" , "wrong" ,"wrong"};
     vector<string> choice_ch  = {"wrong" , "wrong" , "wrong"};
 
@@ -16,31 +21,48 @@ class Card{
     void show_ch(){ cout << chinese << endl;}
     string user_input();
     void judge(bool flag);
-    char show_choice(vector<string> & vs); // return the right choice
-
+    char show_choice_ch(vector<string> & vs); // return the right choice
+    char show_choice_en(vector<string> & vs); // return the right choice
 
 
 
 public:
     //Completely constructor
-    Card(const string & en = "" ,const string &  ch="" , const string &  pr ="", const string &  in =""):
-    english(en) , chinese(ch) , property(pr),info(in) {choice_en.push_back(english);choice_ch.push_back(chinese);}
+    Card(const string & en = "" ,const string &  ch="" , const string &  pr ="", const vector<string> &  in =vector<string>()):
+    english(en) , chinese(ch) , property(pr),info(in) {}
     //use default wrong choice_vector
-    Card(vector<string> we , vector<string> wc ,const string & en = "" ,const string &  ch="" , const string &  pr ="", const string &  in ="" ):
-    Card(en , ch , pr , in){
-    choice_en = we;
-    choice_ch = wc;
-    choice_en.push_back(english);choice_ch.push_back(chinese); }
+    Card(vector<string> we , vector<string> wc ,const string & en = "" ,const string &  ch="" , const string &  pr ="", const vector<string> &  in =vector<string>() ):
+    Card(en , ch , pr , in){ choice_en = we; choice_ch = wc; }
 
     bool recite_spell_c2e();
     bool recite_spell_e2c();
     bool recite_choice_c2e();
     bool recite_choice_e2c();
-    void show_all();
+    void show_all(int index);
 
 //get value interface
     string get_english() { return english;}
+
+
+//work with json
+    Card(const Json & jcard ):english(jcard["english"]),chinese(jcard["chinese"]),property(jcard["property"]),info(jcard["info"].get<vector<string>>()){
+    choice_en =  jcard["choice_en"].get<vector<string>>();
+    choice_ch =  jcard["choice_ch"].get<vector<string>>();
+    // choice_en.push_back(english);
+    // choice_ch.push_back(chinese); 
+
+    }
+
+
+//convertors
+friend void from_json(const Json & j , Card & c);
+friend void to_json(Json & j , const Card & c );
+friend void change(Card & c);
+
+
 };
+
+
 //private methods
 string Card::user_input(){
     string res;
@@ -48,17 +70,35 @@ string Card::user_input(){
     return res;
 }
 void Card::judge(bool flag){
-    if (flag){ cout << "correct" << endl; }
-    else { cout << "wrong" << endl; }
+    if (flag){ cout << GRN << "correct"<<DEF << endl; }
+    else { cout << RED << "wrong" << DEF << endl; }
 }
 
 
-char Card::show_choice(vector<string> & vs){
+char Card::show_choice_ch(vector<string> & vs){
+    vs.push_back(chinese);
     int res;
     char index [4] = {'A','B','C','D'};
     random_shuffle(vs.begin() , vs.end());
     for(int i = 0 ; i < vs.size() ; i++){
-        if(vs[i] == english || vs[i] == chinese){
+        if(vs[i] == chinese){
+            res = i;
+            break;
+        }
+    }
+    for(int i = 0 ; i<vs.size() ; i++){
+        cout << index[i]  << " : "  << vs[i] << endl;
+    }
+    return index[res];
+}
+
+char Card::show_choice_en(vector<string> & vs){
+    vs.push_back(english);
+    int res;
+    char index [4] = {'A','B','C','D'};
+    random_shuffle(vs.begin() , vs.end());
+    for(int i = 0 ; i < vs.size() ; i++){
+        if(vs[i] == english){
             res = i;
             break;
         }
@@ -87,7 +127,7 @@ bool Card::recite_spell_e2c(){
 }
 bool Card::recite_choice_c2e(){
     show_ch();
-    char r = show_choice(choice_ch);
+    char r = show_choice_ch(choice_ch);
     char c = user_input()[0];
     bool flag = (r == c);
     judge(flag);
@@ -97,7 +137,7 @@ bool Card::recite_choice_c2e(){
 }
 bool Card::recite_choice_e2c(){
     show_en();
-    char r = show_choice(choice_en);
+    char r = show_choice_en(choice_en);
     char c = user_input()[0];
     bool flag = (r == c );
     judge(flag);
@@ -105,11 +145,13 @@ bool Card::recite_choice_e2c(){
 
 }
 
-void Card::show_all(){
+void Card::show_all(int index){
     cout << "+------------------------------" << endl;
+    cout << "|index   : " << index << endl;
     cout << "|English : " << english << endl;
     cout << "|Chinese : " << chinese  << endl;
     cout << "|Property: " << property << endl;
-    cout << "|Info    : " << info << endl;
+    for (auto i : info)
+    cout << "|Info    : " << i << endl;
     cout << "+------------------------------" << endl;
 }
