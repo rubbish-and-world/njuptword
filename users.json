@@ -68,5 +68,76 @@
         "name": "user2",
         "password": "passs",
         "type": "user"
+    },
+    {
+        "decks": [
+            {
+                "name": "imported",
+                "standard_score": 60,
+                "total_score": 303,
+                "type": "deck",
+                "wordlists": [
+                    {
+                        "cards": [
+                            {
+                                "chinese": "内阁",
+                                "choice_ch": [
+                                    "小木屋",
+                                    "微风",
+                                    "伪装"
+                                ],
+                                "choice_en": [
+                                    "cabin",
+                                    "breeze",
+                                    "camouflage"
+                                ],
+                                "english": "cabinet",
+                                "info": [
+                                    "it is a kind of person",
+                                    "also a piece of furniture"
+                                ],
+                                "property": "n.",
+                                "type": "card"
+                            },
+                            {
+                                "chinese": "细颈瓶",
+                                "choice_ch": [
+                                    "侧翼",
+                                    "苍蝇",
+                                    "油炸"
+                                ],
+                                "choice_en": [
+                                    "flank",
+                                    "fly",
+                                    "fry"
+                                ],
+                                "english": "flask",
+                                "info": [
+                                    "a bottle can be used for carrying water"
+                                ],
+                                "property": "n.",
+                                "type": "card"
+                            }
+                        ],
+                        "hidden": [],
+                        "name": "everday",
+                        "score": 120,
+                        "standard": 190,
+                        "type": "wordlist"
+                    },
+                    {
+                        "cards": [],
+                        "hidden": [],
+                        "name": "In the long run",
+                        "score": 183,
+                        "standard": 194,
+                        "type": "wordlist"
+                    }
+                ]
+            }
+        ],
+        "name": "augustu",
+        "password": "123456",
+        "type": "user"
     }
 ]

@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <vector>
+#include <algorithm>
+#include <random>
 #include "json.hpp"
 #include "color.hpp"
 using Json = nlohmann::json;
@@ -21,8 +23,8 @@ class Card{
     void show_ch(){ cout << chinese << endl;}
     string user_input();
     void judge(bool flag);
-    char show_choice_ch(vector<string> & vs); // return the right choice
-    char show_choice_en(vector<string> & vs); // return the right choice
+    char show_choice_ch(vector<string>  vs); // return the right choice
+    char show_choice_en(vector<string>  vs); // return the right choice
 
 
 
@@ -75,35 +77,35 @@ void Card::judge(bool flag){
 }
 
 
-char Card::show_choice_ch(vector<string> & vs){
+char Card::show_choice_ch(vector<string>  vs){
     vs.push_back(chinese);
     int res;
     char index [4] = {'A','B','C','D'};
-    random_shuffle(vs.begin() , vs.end());
+    random_shuffle(vs.begin() , vs.end()  );
     for(int i = 0 ; i < vs.size() ; i++){
         if(vs[i] == chinese){
             res = i;
             break;
         }
     }
-    for(int i = 0 ; i<vs.size() ; i++){
+    for(int i = 0 ; i<4 ; i++){
         cout << index[i]  << " : "  << vs[i] << endl;
     }
     return index[res];
 }
 
-char Card::show_choice_en(vector<string> & vs){
+char Card::show_choice_en(vector<string>  vs){
     vs.push_back(english);
     int res;
     char index [4] = {'A','B','C','D'};
-    random_shuffle(vs.begin() , vs.end());
+    random_shuffle(vs.begin() , vs.end() );
     for(int i = 0 ; i < vs.size() ; i++){
         if(vs[i] == english){
             res = i;
             break;
         }
     }
-    for(int i = 0 ; i<vs.size() ; i++){
+    for(int i = 0 ; i<4 ; i++){
         cout << index[i]  << " : "  << vs[i] << endl;
     }
     return index[res];
@@ -127,7 +129,7 @@ bool Card::recite_spell_e2c(){
 }
 bool Card::recite_choice_c2e(){
     show_ch();
-    char r = show_choice_ch(choice_ch);
+    char r = show_choice_en(choice_en);
     char c = user_input()[0];
     bool flag = (r == c);
     judge(flag);
@@ -137,7 +139,7 @@ bool Card::recite_choice_c2e(){
 }
 bool Card::recite_choice_e2c(){
     show_en();
-    char r = show_choice_en(choice_en);
+    char r = show_choice_ch(choice_ch);
     char c = user_input()[0];
     bool flag = (r == c );
     judge(flag);

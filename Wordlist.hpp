@@ -62,9 +62,10 @@ void Wordlist::study(int mode){
     }
 
 void Wordlist::review(int mode){
+    int temp = hidden.size();
     study_whole_list(mode , hidden);
-    cout << BLU << hidden.size() << " words reviewed. Now no wrong words" << DEF << endl;
-    hidden.clear();
+    hidden.erase(hidden.begin() , hidden.begin() + temp);
+    cout << BLU << temp << " words reviewed. Now " << hidden.size() << " wrong words left" << DEF << endl;
 }
 
 void Wordlist::show_cards(){
@@ -95,13 +96,14 @@ void Wordlist::change_score(bool flag){
 }
 
 void Wordlist::study_whole_list(int m_num, vector<Card> & list){
+    vector<Card> buffer;
     bool right ;
     switch(m_num){
         case 1:{
             for(auto c :list){
                 bool right = c.recite_choice_e2c();
                 if(!right) {
-                    hidden.push_back(c);
+                    buffer.push_back(c);
                 }
                 change_score(right);
             }
@@ -111,7 +113,7 @@ void Wordlist::study_whole_list(int m_num, vector<Card> & list){
             for(auto c :list){
                 bool right = c.recite_choice_c2e();
                 if(!right) {
-                    hidden.push_back(c);
+                    buffer.push_back(c);
                 }
                 change_score(right);
             }
@@ -121,7 +123,7 @@ void Wordlist::study_whole_list(int m_num, vector<Card> & list){
             for(auto c :list){
                 bool right = c.recite_spell_c2e();
                 if(!right) {
-                    hidden.push_back(c);
+                    buffer.push_back(c);
                 }
                 change_score(right);
             }
@@ -131,7 +133,7 @@ void Wordlist::study_whole_list(int m_num, vector<Card> & list){
             for(auto c :list){
                 bool right = c.recite_spell_e2c();
                 if(!right) {
-                    hidden.push_back(c);
+                    buffer.push_back(c);
                 }
                 change_score(right);
             }
@@ -141,6 +143,9 @@ void Wordlist::study_whole_list(int m_num, vector<Card> & list){
             cout << RED << "no such mode" << DEF << endl;
         }
     }
+
+    hidden.insert(hidden.end(),buffer.begin(),buffer.end());
+
     
 }
 
