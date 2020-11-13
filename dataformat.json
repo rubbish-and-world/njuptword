@@ -3,7 +3,8 @@
         "type":"user",
         "name": "string",
         "password": "string",
-        "decks":[]
+        "decks":[],
+        "marks":["time1","time2"]
     },
     {
         "type":"deck",
@@ -29,5 +30,5 @@
         "choice_en":["str1","str2","str3"],
         "choice_ch":["str1","str2","str3"]
     }
-    ]
+]
 

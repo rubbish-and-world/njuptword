@@ -64,6 +64,7 @@ void from_json(const Json & j , User & u){
     j.at("name").get_to(u.name);
     j.at("password").get_to(u.password);
     j.at("decks").get_to(u.decks);
+    j.at("marks").get_to(u.marks);
 }
 
 void to_json(Json & j , const User & u){
@@ -71,6 +72,7 @@ void to_json(Json & j , const User & u){
         {"name",u.name},
         {"password",u.password},
         {"decks",u.decks},
-        {"type",u.type}
+        {"type",u.type},
+        {"marks",u.marks}
     };
 }

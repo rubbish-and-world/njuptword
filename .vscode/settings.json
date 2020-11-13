@@ -1,6 +1,9 @@
 {
     "files.associations": {
         "vector": "cpp",
-        "algorithm": "cpp"
+        "algorithm": "cpp",
+        "ctime": "cpp",
+        "iostream": "cpp",
+        "string": "cpp"
     }
 }

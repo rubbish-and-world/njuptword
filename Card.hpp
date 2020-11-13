@@ -25,7 +25,7 @@ class Card{
     void judge(bool flag);
     char show_choice_ch(vector<string>  vs); // return the right choice
     char show_choice_en(vector<string>  vs); // return the right choice
-
+    void changeinfo();
 
 
 public:
@@ -41,6 +41,7 @@ public:
     bool recite_choice_c2e();
     bool recite_choice_e2c();
     void show_all(int index);
+    void edit(int index);
 
 //get value interface
     string get_english() { return english;}
@@ -50,9 +51,6 @@ public:
     Card(const Json & jcard ):english(jcard["english"]),chinese(jcard["chinese"]),property(jcard["property"]),info(jcard["info"].get<vector<string>>()){
     choice_en =  jcard["choice_en"].get<vector<string>>();
     choice_ch =  jcard["choice_ch"].get<vector<string>>();
-    // choice_en.push_back(english);
-    // choice_ch.push_back(chinese); 
-
     }
 
 
@@ -156,4 +154,95 @@ void Card::show_all(int index){
     for (auto i : info)
     cout << "|Info    : " << i << endl;
     cout << "+------------------------------" << endl;
+}
+
+void Card::edit(int index){
+    show_all(index);
+    cout << "which property you want to edit?"<< endl;
+    cout << "Enter :|english|chinese|property|info|"<<endl;
+    string option;
+    string content;
+    cin >> option;
+    if(option == "english"){
+        cout << "change to :" ;
+        cin >> content;
+        english = content;
+    cout << GRN << "card changed!" << DEF << endl;
+    }
+    else if (option == "chinese"){
+        cout << "change to :";
+        cin >> content;
+        chinese = content;
+    cout << GRN << "card changed!" << DEF << endl;
+    }
+    else if(option == "property"){
+        cout << "change to :" ;
+        cin >> content;
+        property = content;
+    cout << GRN << "card changed!" << DEF << endl;
+    }
+    else if (option == "info"){
+        changeinfo();
+    }
+    else {
+        cout << RED << "invalid input" << DEF << endl;
+    }
+
+}
+
+void Card::changeinfo(){
+    int index;
+    string option ;
+    cout << "edit or add or delete?" << endl;
+    cin >> option ;
+    for (int i = 0 ; i < info.size() ; i++){
+        cout << i << " : " << info.at(i) << endl;
+    }
+    
+
+    if (option == "edit"){
+
+        if(!info.empty()){
+    cout << "which one ?" << endl;
+    cin >> index;
+    if(index < 0 || index >= info.size()){
+        cout << RED << "info not found!" << DEF << endl;
+        return ;
+    }
+    }
+
+        cout << "change infomation to :" ;
+        cin >> option;
+        info.at(index) = option;
+        cout << GRN << "edited!" << DEF << endl;
+    }
+    else if(option == "add"){
+        cout << "adding infomation about the card, enter a '$'  to end." << endl;
+        while(getline(cin , option)){
+            if(option == "$"){
+                break;
+            }
+            if(option != ""){
+
+            info.push_back(option);
+            }
+        }
+        cout << GRN << "infomation added!" << DEF << endl;
+    }
+    else if (option == "delete"){
+
+        if(!info.empty()){
+    cout << "which one ?" << endl;
+    cin >> index;
+    if(index < 0 || index >= info.size()){
+        cout << RED << "info not found!" << DEF << endl;
+        return ;
+    }
+    }
+        info.erase(info.begin() + index);
+        cout << GRN << "infomation deleted!" << DEF << endl;
+    }
+    else {
+        cout << RED << "invalid input" << DEF << endl;
+    }
 }

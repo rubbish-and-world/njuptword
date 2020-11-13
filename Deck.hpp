@@ -20,7 +20,7 @@ class Deck{
 public:
     Deck(const string & na = "Unamed" , vector<Wordlist> wl = vector<Wordlist>() ) : name(na)  , wordlists (wl) {}
     void set_standard_score(int num){ standard_score = num;}
-    void add_list(Wordlist & wls) { wordlists.push_back(wls) ; }
+    void add_list(Wordlist  wls) { wordlists.push_back(wls) ; }
     Wordlist& select_wordlist(int index){  return wordlists.at(index);}    
 
     void show_wordlists();

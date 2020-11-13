@@ -26,7 +26,7 @@ class Wordlist{
 public:
     Wordlist(vector<Card> cs = vector<Card>(), const string & na = "unamed"  ):name(na),cards(cs){ }
     Wordlist(const string & na ):name(na){ }
-    void add_card(Card & c){ cards.push_back(c);}
+    void add_card(Card  c){ cards.push_back(c);}
     void show_cards();
     void review(int mode);
     void study(int mode);

@@ -39,7 +39,7 @@ stack<int> s ; //stack used to store the latest index
 
 
 void load_db(){
-    ifstream in("users.json");
+    ifstream in("users.dk");
     string temp ;
     stringstream ss;
     in >> temp ;
@@ -130,18 +130,20 @@ void help(){
     cout << "register   - create a new account" << endl;
     cout << "*----------------*      after login      *----------------*"<< endl;
     cout << "mark       - daily attendence" << endl;
+    cout << "marks      - show all your marks" << endl;
     cout << "import     - import deck via a json file" << endl;
     cout << "score      - show current scores and whether them meet the standard" << endl;
     cout << "decks      - show your decks" << endl;
     cout << "wordlists  - show all your wordlists in current deck" << endl;
     cout << "cards      - show all your cards in current wordlist" << endl;
     cout << "select     - select an item" << endl;
+    cout << "create     - create a void deck or wordlist or card" << endl;
     cout << "*----------------*  after select an item  *----------------*" << endl;
+    cout << "edit       - edit the card you selected" << endl;
     cout << "delete     - delete the selected item" << endl;
     cout << "study      - study the selected card/wordlist" << endl;
     cout << "review     - review all your wrong words in the selected wordlist" << endl;
     cout << "back       - abort the select item and back to the main mode" << endl;
-    // cout << endl;
 }
 
 
@@ -212,7 +214,6 @@ void choose_wordlist(){
     cout << "Enter the index of wordlist you want to select :" << endl;
     string ind = ask_for_input();
     try{
-    // latest_index = stoi(ind);
     s.push(stoi(ind));
     selected_wordlist = selected_deck.select_wordlist(stoi(ind));
     wordlist_selected = true;
@@ -229,7 +230,6 @@ void choose_card(){
     cout << "Enter the index of card you want to select :"<< endl;
     string ind = ask_for_input();
     try{
-        // latest_index = stoi(ind);
         s.push(stoi(ind));
         selected_card = selected_wordlist.select_card(stoi(ind));
         card_selected = true;
@@ -288,7 +288,7 @@ void save(){
     }
     users[uid] = selected_user;
     Json db = users;
-    ofstream out("users.json");
+    ofstream out("users.dk");
     string temp ;
     stringstream ss;
     ss << db;
@@ -305,14 +305,15 @@ void quit(){
 }
 
 int main(){
+    cout << BLU << "Loading database ....." << DEF << endl;
     load_db();
     users = database.get<vector<User>>();
     cout << "*----------------* Welcome to Word System *----------------*" << endl;
     help();
     while (true){
     string cmd = ask_for_input();
-    bool after_login_cmd = (cmd == "mark" || cmd == "import" || cmd == "score" || cmd == "decks" || cmd == "wordlists" || cmd == "cards" || cmd == "select");
-    bool after_select_cmd = (cmd == "delete" || cmd == "review" || cmd == "study" || cmd == "back");
+    bool after_login_cmd = (cmd == "mark" || cmd == "import" || cmd == "score" || cmd == "decks" || cmd == "wordlists" || cmd == "cards" || cmd == "select" || cmd == "marks" || cmd == "create");
+    bool after_select_cmd = (cmd == "delete" || cmd == "review" || cmd == "study" || cmd == "back" || cmd == "edit");
     if (cmd == "help"){
         help();
     }
@@ -334,8 +335,35 @@ int main(){
         if(cmd == "import"){
             import_deck(selected_user);
         }
+        else if (cmd == "mark"){
+            selected_user.mark();
+        }
+        else if (cmd == "marks"){
+            selected_user.show_marks();
+        }
         else if (cmd == "decks"){
             selected_user.show_decks();
+        }
+        else if(cmd == "create"){
+            string name ;
+            if(card_selected){
+                cout << RED << "please back to wordlist first" << DEF << endl;
+            }
+            else if(wordlist_selected){
+                selected_wordlist.add_card(Card());
+            }
+            else if(deck_selected){
+                cout << "the name of your new wordlist :";
+                cin >> name ;
+                selected_deck.add_list(Wordlist(name));
+            }
+            else{
+                cout << "the name of your new deck :" ;
+                cin >> name ;
+                selected_user.add_deck(Deck(name));
+            }
+            cout << GRN << "item created successfully" << DEF << endl;
+
         }
         else if (cmd == "wordlists"){
             if(deck_selected){
@@ -426,6 +454,14 @@ int main(){
                 selected_deck = Deck();
                 deck_selected = false;
 
+            }
+        }
+        else if(cmd == "edit"){
+            if(!card_selected){
+                cout << RED << "no card selected!" << DEF << endl;
+            }
+            else{
+                selected_card.edit(s.top());
             }
         }
 
