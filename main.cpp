@@ -7,6 +7,7 @@
 #include <vector>
 #include <cctype>
 #include <stack>
+#include <sstream>
 #include "json.hpp"
 #include "Card.hpp"
 #include "Wordlist.hpp"
@@ -15,6 +16,9 @@
 #include "converter.hpp"
 #include "color.hpp"
 
+#include "base64.hpp"
+using base64::encode;
+using base64::decode;
 
 using Json = nlohmann::json;
 using namespace std;
@@ -29,7 +33,6 @@ bool logined = false;
 bool deck_selected = false;
 bool wordlist_selected = false;
 bool card_selected = false;
-// int latest_index  = -100;
 int uid ;
 stack<int> s ; //stack used to store the latest index
 
@@ -37,7 +40,13 @@ stack<int> s ; //stack used to store the latest index
 
 void load_db(){
     ifstream in("users.json");
-    in >> database;
+    string temp ;
+    stringstream ss;
+    in >> temp ;
+    auto plain = decode(temp);
+    temp = string(plain.begin() , plain.end());
+    ss << temp;
+    ss >> database;
     in.close();
 }
 
@@ -280,7 +289,11 @@ void save(){
     users[uid] = selected_user;
     Json db = users;
     ofstream out("users.json");
-    out <<setw(4) <<  db;
+    string temp ;
+    stringstream ss;
+    ss << db;
+    temp = ss.str();
+    out <<setw(4) <<  encode(vector<base64::byte>(temp.begin() , temp.end()));
     cout << GRN << "database saved." << DEF  << endl;
     out.close();
     

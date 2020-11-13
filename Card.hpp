@@ -81,7 +81,7 @@ char Card::show_choice_ch(vector<string>  vs){
     vs.push_back(chinese);
     int res;
     char index [4] = {'A','B','C','D'};
-    random_shuffle(vs.begin() , vs.end()  );
+    shuffle(vs.begin() , vs.end()  ,mt19937(random_device()()));
     for(int i = 0 ; i < vs.size() ; i++){
         if(vs[i] == chinese){
             res = i;
@@ -98,7 +98,7 @@ char Card::show_choice_en(vector<string>  vs){
     vs.push_back(english);
     int res;
     char index [4] = {'A','B','C','D'};
-    random_shuffle(vs.begin() , vs.end() );
+    shuffle(vs.begin() , vs.end()  ,mt19937(random_device()()));
     for(int i = 0 ; i < vs.size() ; i++){
         if(vs[i] == english){
             res = i;
