@@ -26,6 +26,8 @@ class Card{
     char show_choice_ch(vector<string>  vs); // return the right choice
     char show_choice_en(vector<string>  vs); // return the right choice
     void changeinfo();
+    void edit_choice(vector<string>& );
+
 
 
 public:
@@ -159,7 +161,7 @@ void Card::show_all(int index){
 void Card::edit(int index){
     show_all(index);
     cout << "which property you want to edit?"<< endl;
-    cout << "Enter :|english|chinese|property|info|"<<endl;
+    cout << "Enter :|english|chinese|property|info|choice"<<endl;
     string option;
     string content;
     cin >> option;
@@ -183,6 +185,21 @@ void Card::edit(int index){
     }
     else if (option == "info"){
         changeinfo();
+    }
+    else if (option == "choice"){
+	    cout << "chinese or english?" << endl;
+	    string temp ;
+	    cin >> temp;
+	    if(temp == "chinese"){
+		    edit_choice(choice_ch);
+
+	    }
+	    else if (temp == "english"){
+		    edit_choice(choice_en);
+	    }
+	    else {
+		    cout << RED << "invalid input" << DEF << endl;
+	    }
     }
     else {
         cout << RED << "invalid input" << DEF << endl;
@@ -245,4 +262,14 @@ void Card::changeinfo(){
     else {
         cout << RED << "invalid input" << DEF << endl;
     }
+}
+    
+void Card::edit_choice(vector<string>& v ){
+	for (int i = 0 ; i < v.size() ; i++){
+		cout << "change choice " <<i<<" to :";
+		string s;
+		cin >> s ;
+		v[i] = s;
+	}
+    cout << GRN << "card changed!" << DEF << endl;
 }
