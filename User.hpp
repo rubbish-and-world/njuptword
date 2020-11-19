@@ -4,8 +4,8 @@
 #include <vector>
 #include "json.hpp"
 #include <ctime>
-using namespace std;
 using Json = nlohmann::json;
+using namespace std;
 class User{
     string type = "user";
     string name;

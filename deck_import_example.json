@@ -21,8 +21,8 @@
                 },
                 {
                     "type":"card",
-                    "english":"flask",
-                    "chinese":"细颈瓶",
+                    "english":"flavour",
+                    "chinese":"风味",
                     "property":"n.",
                     "info":["a bottle can be used for carrying water"],
                     "choice_en":["flank","fly","fry"],

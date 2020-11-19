@@ -4,6 +4,8 @@
         "algorithm": "cpp",
         "ctime": "cpp",
         "iostream": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "iosfwd": "cpp",
+        "ostream": "cpp"
     }
 }

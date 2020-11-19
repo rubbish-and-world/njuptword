@@ -39,6 +39,7 @@ stack<int> s ; //stack used to store the latest index
 
 
 void load_db(){
+    try{
     ifstream in("users.dk");
     string temp ;
     stringstream ss;
@@ -48,6 +49,11 @@ void load_db(){
     ss << temp;
     ss >> database;
     in.close();
+    }
+    catch(const exception &e ){
+        cout << RED << "database not found" << DEF << endl;
+        exit(0);
+    }
 }
 
 

@@ -227,9 +227,9 @@ void Card::changeinfo(){
         return ;
     }
     }
-
         cout << "change infomation to :" ;
-        cin >> option;
+        cin.ignore(256,'\n');
+        getline(cin , option);
         info.at(index) = option;
         cout << GRN << "edited!" << DEF << endl;
     }
